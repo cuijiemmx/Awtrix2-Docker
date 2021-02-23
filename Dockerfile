@@ -1,19 +1,12 @@
-# Arch will be changed while building from GitHub Actions CI Workflow
-# anapsix/alpine-java:8_jdk
-# armv7/armhf-java8
-# arm64v8/openjdk
-ARG CI_FROM=null
-FROM ${CI_FROM}
-RUN echo "Set FROM to $CI_FROM"
+FROM anapsix/alpine-java:8_jdk
 
-# Output target platform
-ARG TARGETPLATFORM
-RUN echo "Building for ARCH $TARGETPLATFORM"
+ENV TZ "Asia/Shanghai"
+ENV JAVA_TOOL_OPTIONS "-Duser.language=zh -Duser.country=CN"
 
 WORKDIR /data
 EXPOSE 7000 7001
 
-# Set entrypoint
 COPY ./assets/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY ./assets/awtrix.jar awtrix.jar
+
 ENTRYPOINT [ "/entrypoint.sh" ]

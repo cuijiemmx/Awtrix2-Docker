@@ -7,57 +7,12 @@ It has an autoupdate feature witch will get the latest Host from the Awtrix Site
 
 Thx to foorschtbar its now MultiPlatform
 
-# Beta Version
-
-if you want to use the beta version set:
-
-```shell
--e AWTRIX_BETA=true -e AUTOUPDATE=true
-```
-
-# AUTOUPDATE
-
-You can Disable autoupdate bei setting:
-
-```shell
--e AUTOUPDATE=false 
-```
 
 # Getting Started
 
 ```shell
-docker run --name AwTriX2 -p 7000:7000 -p 7001:7001 -p 5568:5568/udp --restart always -e TZ=Europe/Berlin  whyet/awtrix2:latest 
+docker run --name AwTriX2 -p 7000:7000 -p 7001:7001 --restart always -e TZ=Europe/Berlin  whyet/awtrix2:latest 
 ```
-
-# Docker Compose
-
-Please don't forget to add your host interface in volumes:
-
-```shell
-version: "3"
-
-services:
-  awtrix:
-    image: whyet/awtrix2
-    restart: unless-stopped
-    ports:
-      - "7000:7000"
-      - "7001:7001"
-      - "5568:5568"
-   
-    volumes:
-      - ./data:/data
-      - /sys/class/net/<your interface>/address:/data/hostmac
-    environment:
-      - TZ=Europe/Berlin
-      - JAVA_TOOL_OPTIONS="-Duser.language=de -Duser.country=DE"
-      - AWTRIX_BETA=false
-      - AUTOUPDATE=true
-```
-
-# Additional Ports:
-
--p 80:80  For Amazon Alexa Support you need this Port. If This Port is already used this can be changed in the config file. 
 
 # For persistent Data add:
 
@@ -89,7 +44,3 @@ or run the container in host mode:
 ```shell
 --network host
 ```
-
-# Support for Creating Docker Containers ;)
-
-<a href="https://www.buymeacoffee.com/TechNic" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 13px !important;width: 55px !important;" ></a>
